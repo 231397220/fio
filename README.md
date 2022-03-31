@@ -49,7 +49,7 @@ yum install libaio-devel fio
 
 ### iodepth
 
-[iodepth](https://github.com/231397220/fio/blob/main/iodepth.png?raw=true)
+[iodepth](https://github.com/231397220/fio/blob/main/iodepth.png)
 
 增加队列深度，可以看到IOPS不会随着队列深度的增加而一直增加，达到一定值后增幅会有所下降。
 
@@ -57,7 +57,7 @@ yum install libaio-devel fio
 
 ### bs
 
-[bs](https://github.com/231397220/fio/blob/main/bs.png?raw=true)
+[bs](https://github.com/231397220/fio/blob/main/bs.png)
 
 增加bs大小，可以测试出磁盘带宽峰值。
 
@@ -233,7 +233,7 @@ fio base-fio.conf
 ```
 
 ### 压测数据
-[pr_data](https://github.com/231397220/fio/blob/main/pr_data.png?raw=true)
+[pr_data](https://github.com/231397220/fio/blob/main/pr_data.png)
 
 #### 通用场景： 压测命令
 
