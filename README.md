@@ -1,4 +1,3 @@
-磁盘性能测试方案
 
 # 背景
 
@@ -50,15 +49,15 @@ yum install libaio-devel fio
 
 ### iodepth
 
-
+[iodepth](https://github.com/231397220/fio/blob/main/iodepth.png?raw=true)
 
 增加队列深度，可以看到IOPS不会随着队列深度的增加而一直增加，达到一定值后增幅会有所下降。
 
 增加队列深度，可以测试出磁盘的峰值。
 
-### 
+### bs
 
-bs
+[bs](https://github.com/231397220/fio/blob/main/bs.png?raw=true)
 
 增加bs大小，可以测试出磁盘带宽峰值。
 
@@ -216,14 +215,25 @@ I/O 调度程序执行的合并数。
 
 ## Longhorn vs Rook vs OS 压测
 
-压测标准
+### 环境信息
+K8S： 1.20
+Longhorn： 1.2.3
+
+### 压测标准
 
 *   异步I/O
 *   IO深度：随机32，顺序16
 *   并发数：随机8，顺序4
 *   禁用缓存
 
+### 压测命令
 
+```
+fio base-fio.conf
+```
+
+### 压测数据
+[pr_data](https://github.com/231397220/fio/blob/main/pr_data.png?raw=true)
 
 #### 通用场景： 压测命令
 
