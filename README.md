@@ -87,7 +87,6 @@ Jobs: 20 (f=20): [R(10),W(10)][4.0%][r=20.5MiB/s,w=23.5MiB/s][r=82,w=94 IOPS][et
 
 当 fio 完成（或被 中断Ctrl-C）时，它将按顺序显示每个线程、线程组和磁盘的数据。对于每个整体线程（或组），输出如下所示：
 
-> 关键结果数据：加粗红色数据
 
 ```
 Client1: (groupid=0, jobs=1): err= 0: pid=16109: Sat Jun 24 12:07:54 2017
@@ -171,11 +170,13 @@ I/O 深度在作业生命周期内的分布。这些数字除以 2 的幂，每�
 
 列出每个客户端后，将打印组统计信息。它们看起来像这样：
 
+```
 Run status group 0 (all jobs):
 
 READ: bw=20.9MiB/s (21.9MB/s), 10.4MiB/s-10.8MiB/s (10.9MB/s-11.3MB/s), io=64.0MiB (67.1MB), run=2973-3069msec
 
 WRITE: bw=1231KiB/s (1261kB/s), 616KiB/s-621KiB/s (630kB/s-636kB/s), io=64.0MiB (67.1MB), run=52747-53223msec
+```
 
 对于它打印的每个数据方向：
 
@@ -193,9 +194,11 @@ WRITE: bw=1231KiB/s (1261kB/s), 616KiB/s-621KiB/s (630kB/s-636kB/s), io=64.0MiB 
 
 最后，打印磁盘统计信息。这是特定于 Linux 的。它们看起来像这样：
 
+```
 Disk stats (read/write):
 
 sda: ios=16398/16511, merge=30/162, ticks=6853/819634, in_queue=826487, util=100.00%
+```
 
 为读取和写入打印每个值，首先读取。数字表示：
 
