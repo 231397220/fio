@@ -63,6 +63,11 @@ yum install libaio-devel fio
 
 减小bs大小，可以测试出磁盘IOPS峰值。
 
+### Numjobs
+![numjobs](https://github.com/231397220/fio/blob/main/numjobs.png)
+numjos与iodepth表现相同。
+增加并发数，可以测试出磁盘的峰值。
+
 
 ## FIO输出详解
 
@@ -216,8 +221,9 @@ I/O 调度程序执行的合并数。
 ## Longhorn vs Rook vs OS 压测
 
 ### 环境信息
-K8S： 1.20
-Longhorn： 1.2.3
+- K8S： 1.20
+- Longhorn： 1.2.3
+- Fio: 3.7
 
 ### 压测标准
 
@@ -229,7 +235,8 @@ Longhorn： 1.2.3
 ### 压测命令
 
 ```
-fio base-fio.conf
+git clone https://github.com/231397220/fio.git fio-example
+fio fio-examle/base-fio.conf
 ```
 
 ### 压测数据
