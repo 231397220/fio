@@ -64,8 +64,11 @@ yum install libaio-devel fio
 减小bs大小，可以测试出磁盘IOPS峰值。
 
 ### Numjobs
+
 ![numjobs](https://github.com/231397220/fio/blob/main/numjobs.png)
+
 numjos与iodepth表现相同。
+
 增加并发数，可以测试出磁盘的峰值。
 
 
