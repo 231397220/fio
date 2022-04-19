@@ -238,15 +238,92 @@ I/O 调度程序执行的合并数。
 *   并发数：随机8，顺序4
 *   禁用缓存
 
-### 压测命令
+### 快速开始
+#### 部署fio pod
+> pv由sc创建或自定义。
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-default-samtest1
+  name: samtest1
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-default-samtest1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-default-samtest1
+    spec:
+      containers:
+      - image: registry.cn-wulanchabu.aliyuncs.com/moge1/centos_tools:22.03.4
+        imagePullPolicy: Always
+        name: samtest1
+        resources:
+          limits:
+            cpu: 1800m
+            memory: 7000Mi
+          requests:
+            cpu: 100m
+            memory: 1000Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /data
+          name: fio-test
+      dnsPolicy: ClusterFirst
+      nodeName: zhangnan-2c8g-test-1
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: fio-test
+        persistentVolumeClaim:
+          claimName: fio-test
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fio-test
+  namespace: default
+spec:
+  resources:
+    requests:
+      storage: 50Gi
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: manual
+  volumeMode: Filesystem
+  volumeName: fio-test
+```
+
+#### 压测命令
 
 ```
 git clone https://github.com/231397220/fio.git fio-example
 fio fio-examle/base-fio.conf
 ```
-
-### 压测数据
-![pr_data](https://github.com/231397220/fio/blob/main/pr_data.png)
 
 #### 通用场景： 压测命令
 
@@ -254,3 +331,9 @@ fio fio-examle/base-fio.conf
 fio --directory=/data/test --name fio_test_file --direct=1 --rw=randread --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
 
 ```
+
+
+### 压测数据
+![pr_data](https://github.com/231397220/fio/blob/main/pr_data.png)
+
+
